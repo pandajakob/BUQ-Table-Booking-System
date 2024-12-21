@@ -24,19 +24,22 @@ export const Auth = ({ setUser }) => {
   };
 
   return (
-    <div>
-      <input
-        placeholder="Email..."
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      
-      <input
-        placeholder="Password..."
-        onChange={(e) => setPassword(e.target.value)}
-      />
+    <div className="flex">
+      <div className="container">
+        <h3> Log ind</h3>
+        <input
+          placeholder="Email..."
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-      <button onClick={signIn}> Sign in </button>
-      <button onClick={signUp}> Sign up </button>
+        <input
+          placeholder="Password..."
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <button onClick={signIn}> Sign in </button>
+        <button onClick={signUp}> Sign up </button>
+      </div>
     </div>
   );
 };

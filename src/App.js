@@ -24,13 +24,30 @@ function App() {
 
   return (
     <div className="App">
-      {user ? (
-        // Render Restaurant component if user is logged in
-        <Restaurant user={user} logout={logout} />
-      ) : (
-        // Render Auth component if user is not logged in
-        <Auth setUser={setUser} />
-      )}
+      <div id="header" className="flex">
+        <h3> Buq.dk </h3>
+        <ul className="flex ">
+          <li>
+            {user ? 
+            <button style={{backgroundColor: "red"}} onClick={logout}> log ud</button>
+            :
+            <button>  Log ind </button>
+            }
+          </li>
+          <li>
+            <button> Profile </button>
+          </li>
+        </ul>
+      </div>
+      <div className="main">
+          {user ? (
+            // Render Restaurant component if user is logged in
+            <Restaurant user={user} />
+          ) : (
+            // Render Auth component if user is not logged in
+            <Auth setUser={setUser} />
+          )}
+      </div>
     </div>
   );
 }
