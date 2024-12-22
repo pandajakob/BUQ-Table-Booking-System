@@ -115,6 +115,43 @@ button:active, .button:active {
   transform: scale(0.95);
 
 }
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.spinner {
+  border: 10px solid #f3f3f3; /* Light grey background */
+  border-top: 10px solid var(--blue-primary); /* Blue color for the spinner */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+    border-radius: 50%;
+  }
+  33% {
+    transform: rotate(200deg);
+    border-radius: 30%;
+  }
+
+  50% {
+    transform: rotate(400deg);
+    border-radius: 40%;
+  }
+
+  100% {
+    transform: rotate(0deg);
+    border-radius: 50%;
+  }
 
 
+}
 

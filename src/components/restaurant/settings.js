@@ -4,6 +4,7 @@ import { db } from "../../config/firebase";
 import { getDoc, doc } from "firebase/firestore";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
+import { Loading } from "../loading.js"
 
 export const RestaurantSettings = ({ user }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -75,9 +76,9 @@ export const RestaurantSettings = ({ user }) => {
 
 
   if (isLoading) {
-    return <div style={{margin:"10%"}}> <h2> loading...</h2></div>
+    return <Loading />;
   }
-
+  
   return (
     <div>
       <h1> {restaurant.name} </h1>
