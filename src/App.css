@@ -144,7 +144,7 @@ button:active, .button:active {
 
   50% {
     transform: rotate(400deg);
-    border-radius: 40%;
+    border-radius: 30%;
   }
 
   100% {

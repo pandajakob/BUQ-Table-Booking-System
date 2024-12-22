@@ -9,12 +9,17 @@ import {
 import { useNavigate } from "react-router-dom";
 
 export const Auth = ({ setUser }) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const navigate = useNavigate();
 
+ 
+
+
   const signUp = async () => {
+    setIsLoading(true);
     try {
       let userCredentials = await createUserWithEmailAndPassword(
         auth,
@@ -22,9 +27,11 @@ export const Auth = ({ setUser }) => {
         Password
       );
       setUser(userCredentials.user);
-      navigate("/../bookings");
+      navigate("/../newRestaurant");
     } catch (err) {
-      console.error(err);
+      setError(err.code.slice(5));
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -39,7 +46,7 @@ export const Auth = ({ setUser }) => {
       setUser(userCredentials.user);
       navigate("/../bookings");
     } catch (err) {
-      console.error(err);
+        setError(err.code.slice(5));
     } finally {
       setIsLoading(false);
     }
@@ -73,6 +80,8 @@ export const Auth = ({ setUser }) => {
           {" "}
           Sign up{" "}
         </button>
+        <p style={{color : "red"}}> {error} </p>
+
       </div>
     </div>
   );

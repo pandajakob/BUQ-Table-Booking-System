@@ -9,6 +9,7 @@ import { HomePage } from "./components/home";
 import { Auth } from "./components/auth";
 import { RestaurantSettings } from "./components/restaurant/settings";
 import { Bookings } from "./components/restaurant/bookings";
+import { NewRestaurant } from "./components/restaurant/newRestaurant";
 
 function App() {
   const [user, setUser] = useState(null); // Track user authentication state
@@ -36,6 +37,8 @@ function App() {
         <Route path="/auth" element={<Auth setUser={setUser}/>}></Route>
         <Route path="/bookings" element={<Bookings />}></Route>
         <Route path="/settings" element={<RestaurantSettings user={user} />}></Route>
+        <Route path="/newRestaurant" element={<NewRestaurant user={user} />}></Route>
+
       </Routes>
     </div>
   );
