@@ -2,9 +2,9 @@ import logo from "./logo.svg";
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import { NavLink } from "react-router-dom";
 import { auth } from "./config/firebase";
 
+import { NavBar } from "./components/navBar";
 import { HomePage } from "./components/home";
 import { Auth } from "./components/auth";
 import { RestaurantSettings } from "./components/restaurant/settings";
@@ -29,43 +29,13 @@ function App() {
 
   return (
     <div className="App">
-      <nav id="header" className="flex">
-        <h3> Buq.dk </h3>
-        {user ? (
-          <ul className="flex">
-            <li>
-              <NavLink className="button white" to="/bookings">
-                Bookings
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className="button white" to="/settings">
-                settings
-              </NavLink>
-            </li>
-            <li>
-            <NavLink  to="/auth">
-                <button className="button red" onClick={logout}> Log ud</button>
-            </NavLink>
-            </li>
-          </ul>
-        ) : (
-          <ul className="flex">
-            <li>
-              <NavLink to="/auth">
-                <p className="button blue">Log ind</p>
-              </NavLink>
-            </li>
-          </ul>
-        )}
-      </nav>
+            <NavBar user={user} logout={logout}/>
 
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/auth" element={<Auth setUser={setUser}/>}></Route>
         <Route path="/bookings" element={<Bookings />}></Route>
         <Route path="/settings" element={<RestaurantSettings user={user} />}></Route>
-
       </Routes>
     </div>
   );
