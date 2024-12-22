@@ -1,13 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
 import React, { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { auth } from "./config/firebase";
-import { Auth } from './components/auth';
-import { Restaurant } from './components/restaurant';
+
+import { HomePage } from "./components/home";
+import { Auth } from "./components/auth";
+import { RestaurantSettings } from "./components/restaurant/settings";
+import { Bookings } from "./components/restaurant/bookings";
 
 function App() {
   const [user, setUser] = useState(null); // Track user authentication state
-  
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(setUser); // Update user state on auth state change
     return () => unsubscribe(); // Cleanup listener on component unmount
@@ -24,30 +29,44 @@ function App() {
 
   return (
     <div className="App">
-      <div id="header" className="flex">
+      <nav id="header" className="flex">
         <h3> Buq.dk </h3>
-        <ul className="flex ">
-          <li>
-            {user ? 
-            <button style={{backgroundColor: "red"}} onClick={logout}> log ud</button>
-            :
-            <button>  Log ind </button>
-            }
-          </li>
-          <li>
-            <button> Profile </button>
-          </li>
-        </ul>
-      </div>
-      <div className="main">
-          {user ? (
-            // Render Restaurant component if user is logged in
-            <Restaurant user={user} />
-          ) : (
-            // Render Auth component if user is not logged in
-            <Auth setUser={setUser} />
-          )}
-      </div>
+        {user ? (
+          <ul className="flex">
+            <li>
+              <NavLink className="button white" to="/bookings">
+                Bookings
+              </NavLink>
+            </li>
+            <li>
+              <NavLink className="button white" to="/settings">
+                settings
+              </NavLink>
+            </li>
+            <li>
+            <NavLink  to="/auth">
+                <button className="button red" onClick={logout}> Log ud</button>
+            </NavLink>
+            </li>
+          </ul>
+        ) : (
+          <ul className="flex">
+            <li>
+              <NavLink to="/auth">
+                <p className="button blue">Log ind</p>
+              </NavLink>
+            </li>
+          </ul>
+        )}
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<HomePage />}></Route>
+        <Route path="/auth" element={<Auth setUser={setUser}/>}></Route>
+        <Route path="/bookings" element={<Bookings />}></Route>
+        <Route path="/settings" element={<RestaurantSettings user={user} />}></Route>
+
+      </Routes>
     </div>
   );
 }

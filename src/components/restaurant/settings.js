@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { auth } from "../config/firebase";
-import { db } from "../config/firebase";
+import { auth } from "../../config/firebase";
+import { db } from "../../config/firebase";
 import { getDoc, doc } from "firebase/firestore";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 
-export const Restaurant = ({ user }) => {
-  const [loading, setLoading] = useState(false);
+export const RestaurantSettings = ({ user }) => {
+  const [isLoading, setIsLoading] = useState(false);
 
   const [restaurant, setRestaurant] = useState("");
 
@@ -18,7 +18,7 @@ export const Restaurant = ({ user }) => {
 
   useEffect(() => {
     const getRestaurant = async () => {
-      setLoading(true);
+      setIsLoading(true);
 
       const documentPath = "restaurants/" + user.uid;
       const document = doc(db, documentPath);
@@ -36,7 +36,7 @@ export const Restaurant = ({ user }) => {
       } catch (err) {
         console.log(err);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
     getRestaurant();
@@ -73,9 +73,12 @@ export const Restaurant = ({ user }) => {
     }
   }, [restaurant]); // Adding `restaurant` as a dependency to run this effect when it changes
 
-  return loading ? (
-    <h2> Loading... </h2>
-  ) : (
+
+  if (isLoading) {
+    return <div style={{margin:"10%"}}> <h2> loading...</h2></div>
+  }
+
+  return (
     <div>
       <h1> {restaurant.name} </h1>
       <h3> {restaurant.email} </h3>
@@ -131,7 +134,7 @@ export const Restaurant = ({ user }) => {
           </div>
         </div>
       </div>
-      <button> Gem ændringer </button>
+      <button className="blue"> Gem ændringer </button>
     </div>
   );
 };

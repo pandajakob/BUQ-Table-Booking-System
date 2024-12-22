@@ -1,27 +1,40 @@
 import { useState } from "react";
 import { auth } from "../config/firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut  } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
 
 export const Auth = ({ setUser }) => {
   const [email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
- 
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
   const signUp = async () => {
     try {
-      await createUserWithEmailAndPassword(auth, email, Password);
+      let userCredentials = await createUserWithEmailAndPassword(auth, email, Password);
+      setUser(userCredentials.user);
+      navigate('/../bookings');
     } catch (err) {
       console.error(err);
     }
   };
 
   const signIn = async () => {
+    setIsLoading(true);
     try {
      let userCredentials = await signInWithEmailAndPassword(auth, email, Password);
       setUser(userCredentials.user);
+      navigate('/../bookings');
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   };
+  
+  if (isLoading) {
+    return <div style={{margin:"10%"}}> <h2> loading...</h2></div>
+  }
 
   return (
     <div className="flex">
@@ -37,8 +50,8 @@ export const Auth = ({ setUser }) => {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button onClick={signIn}> Sign in </button>
-        <button onClick={signUp}> Sign up </button>
+        <button className="white" onClick={signIn}> Sign in </button>
+        <button className="black" onClick={signUp}> Sign up </button>
       </div>
     </div>
   );
