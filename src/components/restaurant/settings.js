@@ -7,7 +7,7 @@ import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import { Loading } from "../loading.js";
 
 export const RestaurantSettings = ({ user }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [restaurant, setRestaurant] = useState("");
 
@@ -17,12 +17,12 @@ export const RestaurantSettings = ({ user }) => {
   const [seats, setSeats] = useState(0);
   const [tableDuration, setTableDuration] = useState(0);
 
+  const documentPath = "restaurants/" + user.uid;
+  const document = doc(db, documentPath);
+
   useEffect(() => {
     const getRestaurant = async () => {
       setIsLoading(true);
-      const documentPath = "restaurants/" + user.uid;
-      const document = doc(db, documentPath);
-      console.log("docPath:", documentPath);
 
       if (!auth?.currentUser) {
         console.log("User not logged in.");
@@ -32,6 +32,7 @@ export const RestaurantSettings = ({ user }) => {
       try {
         const data = await getDoc(document);
         setRestaurant(data.data());
+
         console.log("succesfully fetchec restaurants");
       } catch (err) {
         console.log(err);
@@ -42,19 +43,53 @@ export const RestaurantSettings = ({ user }) => {
     getRestaurant();
   }, [user]);
 
-  const getOpeningHours = () => {
-    if (
-      restaurant.openingHours &&
-      typeof restaurant.openingHours === "object"
-    ) {
-      setOpeningHours(restaurant.openingHours);
-    } else {
-      console.log("Invalid openingHours data:", restaurant.openingHours);
-      setOpeningHours({});
-    }
+  useEffect(() => {
+    const getOpeningHours = () => {
+      setIsLoading(true);
+      if (
+        restaurant.openingHours &&
+        typeof restaurant.openingHours === "object"
+      ) {
+        setOpeningHours(restaurant.openingHours);
+      } else {
+        console.log("Invalid openingHours data:", restaurant.openingHours);
+        setOpeningHours({});
+      }
+      setIsLoading(false);
+    };
+    getOpeningHours();
+
+    
+  }, [restaurant]); // Adding `restaurant` as a dependency to run this effect when it changes
+
+  const handleOpeningHourChange = (day, openOrClose, timeValue) => {
+    const newOpeningHours = { ...openingHours };
+    newOpeningHours[day][openOrClose] = timeValue;
+    console.log("new openhours", newOpeningHours);
+    setOpeningHours(newOpeningHours);
+    console.log(" openhours", openingHours);
   };
 
-  const handleOpeningHourChange = () => {};
+  const saveOpeningHours = async () => {
+    setIsLoading(true);
+    const documentPath = "restaurants/" + user.uid;
+    const docRef = doc(db, documentPath);
+
+    try {
+      await setDoc(docRef, {
+        name: restaurant.name,
+        email: user.email,
+        numberOfSeats: seats,
+        datesClosed: datesClosed,
+        openingHours: openingHours,
+      });
+      console.log("saved changes successfully");
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const saveRestaurantData = () => {};
 
@@ -66,13 +101,6 @@ export const RestaurantSettings = ({ user }) => {
     });
     setDatesClosed(formattedClosedDates);
   };
-
-  useEffect(() => {
-    if (restaurant && restaurant.openingHours) {
-      getOpeningHours();
-      getClosedDates();
-    }
-  }, [restaurant]); // Adding `restaurant` as a dependency to run this effect when it changes
 
   if (isLoading) {
     return <Loading />;
@@ -86,124 +114,33 @@ export const RestaurantSettings = ({ user }) => {
         <div className="container">
           <h2> Åbningstider</h2>
           <form>
-            <label>Mandag</label>
-            <input
-              type="time"
-              value={openingHours.monday?.[0] || ""}
-              onChange={(e) =>
-                handleOpeningHourChange(openingHours.monday, 0, e.target.value)
-              }
-            />
-            <input
-              type="time"
-              value={openingHours.monday?.[1] || ""}
-              onChange={(e) =>
-                handleOpeningHourChange(openingHours.monday, 0, e.target.value)
-              }
-            />
-            <br />
-
-            <label>Tirsdag</label>
-            <input
-              type="time"
-              value={openingHours.tuesday?.[0] || ""}
-              onChange={(e) =>
-                handleOpeningHourChange(openingHours.tuesday, 0, e.target.value)
-              }
-            />
-            <input
-              type="time"
-              value={openingHours.tuesday?.[1] || ""}
-              onChange={(e) =>
-                handleOpeningHourChange(openingHours.tuesday, 0, e.target.value)
-              }
-            />
-            <br />
-
-            <label>Onsdag</label>
-            <input
-              type="time"
-              value={openingHours.wednesday?.[0] || ""}
-              onChange={(e) =>
-                handleOpeningHourChange(openingHours.wednesday, 0, e.target.value)
-              }
-            />
-            <input
-              type="time"
-              value={openingHours.wednesday?.[1] || ""}
-              onChange={(e) =>
-                handleOpeningHourChange(openingHours.wednesday, 0, e.target.value)
-              }
-            />
-            <br />
-
-            <label>Torsdag</label>
-            <input
-              type="time"
-              value={openingHours.thursday?.[0] || ""}
-              onChange={(e) =>
-                handleOpeningHourChange(openingHours.thursday, 0, e.target.value)
-              }
-            />
-            <input
-              type="time"
-              value={openingHours.thursday?.[1] || ""}
-              onChange={(e) =>
-                handleOpeningHourChange(openingHours.thursday, 0, e.target.value)
-              }
-            />
-            <br />
-
-            <label>Fredag</label>
-            <input
-              type="time"
-              value={openingHours.friday?.[0] || ""}
-              onChange={(e) =>
-                handleOpeningHourChange(openingHours.friday, 0, e.target.value)
-              }
-            />
-            <input
-              type="time"
-              value={openingHours.friday?.[1] || ""}
-              onChange={(e) =>
-                handleOpeningHourChange(openingHours.friday, 0, e.target.value)
-              }
-            />
-            <br />
-
-            <label>Lørdag</label>
-            <input
-              type="time"
-              value={openingHours.saturday?.[0] || ""}
-              onChange={(e) =>
-                handleOpeningHourChange(openingHours.saturday, 0, e.target.value)
-              }
-            />
-            <input
-              type="time"
-              value={openingHours.saturday?.[1] || ""}
-              onChange={(e) =>
-                handleOpeningHourChange(openingHours.saturday, 0, e.target.value)
-              }
-            />
-            <br />
-
-            <label>Søndag</label>
-            <input
-              type="time"
-              value={openingHours.sunday?.[0] || ""}
-              onChange={(e) =>
-                handleOpeningHourChange(openingHours.sunday, 0, e.target.value)
-              }
-            />
-            <input
-              type="time"
-              value={openingHours.sunday?.[1] || ""}
-              onChange={(e) =>
-                handleOpeningHourChange(openingHours.sunday, 0, e.target.value)
-              }
-            />
-            <br />
+            {[
+              "monday",
+              "tuesday",
+              "wednesday",
+              "thursday",
+              "friday",
+              "saturday",
+              "sunday",
+            ].map((day) => (
+              <div key={day}>
+                <label>{day}</label>
+                <input
+                  type="time"
+                  value={openingHours[day]?.[0] || ""}
+                  onChange={(e) =>
+                    handleOpeningHourChange(day, 0, e.target.value)
+                  }
+                />
+                <input
+                  type="time"
+                  value={openingHours[day]?.[1] || ""}
+                  onChange={(e) =>
+                    handleOpeningHourChange(day, 1, e.target.value)
+                  }
+                />
+              </div>
+            ))}
           </form>
         </div>
         <div style={{ margin: "3%" }}>
@@ -232,7 +169,10 @@ export const RestaurantSettings = ({ user }) => {
           </div>
         </div>
       </div>
-      <button className="blue"> Gem ændringer </button>
+      <button className="blue" onClick={saveOpeningHours}>
+        {" "}
+        Gem ændringer{" "}
+      </button>
     </div>
   );
 };
