@@ -21,7 +21,7 @@ export const NewRestaurant = ({ user }) => {
             email: user.email,
             numberOfSeats: 0,
             datesClosed: [],
-            openingHours: {monday: ["12:00", "18:00"], tuesday: ["12:00", "18:00"],wednesday: ["12:00", "18:00"], thursday: ["12:00", "18:00"],friday: ["12:00", "18:00"],saturday: ["12:00", "18:00"],sunday: ["12:00", "18:00"]},
+            openingHours: {monday: ["", ""], tuesday: ["", "", true],wednesday: ["", "", true], thursday: ["", "", true],friday: ["", "", true],saturday: ["", "", true],sunday: ["", "", true]},
 
         });
 
@@ -40,8 +40,8 @@ export const NewRestaurant = ({ user }) => {
   }
 
   return (
-    <div className="container flex">
-      <form>
+    <div className="flex">
+      <form className="container">
         <h2> Hvad hedder din restaurant? </h2>
         <input type="text" id="restaurant-name" onChange={(e) => {setRestauantName(e.target.value)}} />
         <button className="blue" onClick={initRestaurant}> Videre </button>

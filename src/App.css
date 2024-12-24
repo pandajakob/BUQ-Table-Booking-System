@@ -51,7 +51,7 @@
 
 .container {
   min-width: 350px;
-  max-width: fit-content;
+  max-width: max-content;
   height: min-content;
   margin: 3%;
   padding: 3%;
