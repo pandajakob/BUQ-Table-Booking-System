@@ -15,9 +15,6 @@ export const Auth = ({ setUser }) => {
   const [Password, setPassword] = useState("");
   const navigate = useNavigate();
 
- 
-
-
   const signUp = async () => {
     setIsLoading(true);
     try {

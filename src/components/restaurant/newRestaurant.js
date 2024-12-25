@@ -8,7 +8,7 @@ import { Bookings } from "./bookings.js";
 
 export const NewRestaurant = ({ user }) => {
   const [restaurantName, setRestauantName] = useState("");
-  const [isLoading, setIsLoading] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const initRestaurant = async () => {
@@ -17,11 +17,12 @@ export const NewRestaurant = ({ user }) => {
     try {
         const docRef = doc(db, "restaurants", user.uid);
         await setDoc(docRef,{
-            name: restaurantName,
+            restaurantName: restaurantName,
             email: user.email,
             numberOfSeats: 0,
+            tableDuration: 0,
             datesClosed: [],
-            openingHours: {monday: ["", ""], tuesday: ["", "", true],wednesday: ["", "", true], thursday: ["", "", true],friday: ["", "", true],saturday: ["", "", true],sunday: ["", "", true]},
+            openingHours: {monday: ["", "", true], tuesday: ["", "", true],wednesday: ["", "", true], thursday: ["", "", true],friday: ["", "", true],saturday: ["", "", true],sunday: ["", "", true]},
 
         });
 

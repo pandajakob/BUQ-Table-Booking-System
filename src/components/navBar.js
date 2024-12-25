@@ -3,7 +3,10 @@ import { NavLink } from "react-router-dom";
 export const NavBar = ({ user, logout }) => {
   return (
     <nav id="header" className="flex">
-      <h3> Buq.dk </h3>
+      <NavLink to="/">
+        <h3 id="logoTitle"> BUQ </h3>
+      </NavLink>
+
       {user ? (
         <ul className="flex">
           <li>
