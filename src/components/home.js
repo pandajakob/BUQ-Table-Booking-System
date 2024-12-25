@@ -5,9 +5,8 @@ import { auth } from "../config/firebase";
 export const HomePage = () => {
   return (
     <div className="flex">
-      <div className="container">
-        <h1> buq frontpage</h1>
-      </div>
+        <h1> BUQ </h1>
+        <h3> Table booking system </h3>
     </div>
   );
 };
