@@ -179,7 +179,19 @@ a:hover {
 
   button, .button {
     min-width: 80px;
+    padding: 15px;
   }
+  input {
+    padding: 15px;
+  }
+  #loginContainer input {
+    width: 80%;
+  }
+  #loginContainer button {
+    width: 80%;
+
+  }
+
   #header ul {
     margin: 0;
     padding: 0;

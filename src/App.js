@@ -1,7 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
 import React, { useEffect, useState } from "react";
-import { Routes, Route, Redirect } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { auth } from "./config/firebase";
 
 import { NavBar } from "./components/navBar";
@@ -44,24 +44,17 @@ function App() {
     }
   };
 
+ 
   return (
     <div className="App">
       <NavBar user={user} logout={logout} />
 
       <Routes>
-        <Route path="/" element={<HomePage />}></Route>
-        <Route path="/auth" element={<Auth setUser={setUser} />}></Route>
-        <Route path="/bookings" element={<Bookings />}></Route>
-        <Route from="*" to="/" />
-
-        <Route
-          path="/settings"
-          element={<RestaurantSettings user={user} />}
-        ></Route>
-        <Route
-          path="/newRestaurant"
-          element={<NewRestaurant user={user} />}
-        ></Route>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/auth" element={<Auth setUser={setUser} />} />
+        <Route path="/bookings" element={<Bookings />} />
+        <Route path="/settings" element={<RestaurantSettings user={user} />} />
+        <Route path="/newRestaurant" element={<NewRestaurant user={user} />} />
       </Routes>
     </div>
   );

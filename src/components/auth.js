@@ -55,7 +55,7 @@ export const Auth = ({ setUser }) => {
 
   return (
     <div className="flex">
-      <div className="container">
+      <div className="container" id="loginContainer">
         <h3> Log ind</h3>
         <input
           type="email"
