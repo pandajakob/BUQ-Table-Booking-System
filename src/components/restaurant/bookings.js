@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { auth } from "../../config/firebase";
 import { Loading } from "../loading.js";
 
 export const Bookings = () => {
     const [isLoading, setIsLoading] = useState(false);
 
+    useState(()=> {
+      setIsLoading(true);
 
+      setIsLoading(false);
+    })
   if (isLoading) {
     return <Loading />;
   }

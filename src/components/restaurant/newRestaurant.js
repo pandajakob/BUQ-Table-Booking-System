@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
-import { auth } from "../../config/firebase";
+import { useState } from "react";
 import { db } from "../../config/firebase";
-import { getDoc, doc, addDoc, setDoc, collection } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { Loading } from "../loading.js";
 import { useNavigate } from "react-router-dom";
-import { Bookings } from "./bookings.js";
+
 
 export const NewRestaurant = ({ user }) => {
   const [restaurantName, setRestauantName] = useState("");
@@ -13,7 +12,6 @@ export const NewRestaurant = ({ user }) => {
 
   const initRestaurant = async () => {
     setIsLoading(true);
-    const collectionRefference = collection(db, "restaurants");
     try {
         const docRef = doc(db, "restaurants", user.uid);
         await setDoc(docRef,{

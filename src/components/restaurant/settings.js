@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import { auth } from "../../config/firebase";
 import { db } from "../../config/firebase";
-import { getDoc, doc, setDoc, collection, Timestamp } from "firebase/firestore";
+import { getDoc, doc, setDoc } from "firebase/firestore";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import { Loading } from "../loading.js";
 import { useNavigate } from "react-router-dom";
 
 export const RestaurantSettings = ({ user }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
   // restaurant states

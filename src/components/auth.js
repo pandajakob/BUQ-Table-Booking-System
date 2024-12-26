@@ -4,7 +4,6 @@ import { auth } from "../config/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 

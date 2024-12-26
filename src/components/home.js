@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { auth } from "../config/firebase";
 
 
 export const HomePage = () => {
