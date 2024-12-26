@@ -7,7 +7,7 @@ on:
       workflows: ['Build']
       types: [completed]
       branches: 
-          - 'main'
+          - '*'
 permissions:
   checks: write
   contents: read
