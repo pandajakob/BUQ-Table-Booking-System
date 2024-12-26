@@ -6,7 +6,6 @@ export const Bookings = () => {
 
     useState(()=> {
       setIsLoading(true);
-
       setIsLoading(false);
     })
   if (isLoading) {

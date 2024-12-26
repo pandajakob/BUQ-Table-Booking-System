@@ -4,10 +4,10 @@ import { getDoc, doc, setDoc } from "firebase/firestore";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import { Loading } from "../loading.js";
-import { useNavigate } from "react-router-dom";
+
 
 export const RestaurantSettings = ({ user }) => {
-  // const navigate = useNavigate();
+
   const [isLoading, setIsLoading] = useState(true);
 
   // restaurant states
@@ -30,42 +30,38 @@ export const RestaurantSettings = ({ user }) => {
   const documentPath = "restaurants/" + user?.uid;
   const docRef = doc(db, documentPath);
 
-  const getRestaurant = async () => {
+  const getRestaurant = useCallback(async () => {
     try {
       const data = await getDoc(docRef);
       setRestaurant(data.data());
-      console.log("succesfully fetchec restaurants");
+      console.log("successfully fetched restaurant");
     } catch (err) {
       console.log(err);
     }
-  };
+  }, [docRef]);
 
   // import the opening hours to correct object format:
-  const getOpeningHours = () => {
-    if (
-      restaurant.openingHours &&
-      typeof restaurant.openingHours === "object"
-    ) {
+  const getOpeningHours = useCallback(() => {
+    if (restaurant.openingHours && typeof restaurant.openingHours === "object") {
       setOpeningHours(restaurant.openingHours);
     } else {
       console.log("Invalid openingHours data:", restaurant.openingHours);
       setOpeningHours({});
     }
-  };
+  }, [restaurant]);
 
   //converts firestore timestamps to dates
-  const getClosedDates = () => {
-    // Check if restaurant and datesClosed are defined
+  const getClosedDates = useCallback(() => {
     const formattedClosedDates = restaurant.datesClosed.map((date) => {
       return new DateObject().set({ date: date.toDate(), format: format });
     });
     setDatesClosed(formattedClosedDates);
-  };
+  }, [restaurant.datesClosed, format]);
 
   useEffect(() => {
     setIsLoading(true);
     getRestaurant();
-  }, [user]);
+  }, [getRestaurant, user]);
 
   useEffect(() => {
     if (restaurant) {
