@@ -71,7 +71,7 @@ export const RestaurantSettings = ({ user }) => {
       setTableDuration(restaurant.tableDuration);
       setIsLoading(false); // Set to false when restaurant data is available
     }
-  }, [restaurant]);
+  }, [restaurant, getOpeningHours, getClosedDates]);
 
   // import the closed dates to correct date format for the datePicker
 
