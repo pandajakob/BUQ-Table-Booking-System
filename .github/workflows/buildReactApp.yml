@@ -4,10 +4,6 @@ on:
   push:
     branches:
       - main  # Trigger build when pushing to the main branch
-permissions:
-  checks: write
-  contents: read
-  pull-requests: write
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -32,10 +28,3 @@ jobs:
         with:
           name: build
           path: ./build
-
-      - uses: actions/checkout@v4
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BUQ123_4846B }}
-          projectId: buq123-4846b
