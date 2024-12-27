@@ -30,7 +30,7 @@ export const RestaurantSettings = ({ user }) => {
   const documentPath = "restaurants/" + user?.uid;
   const docRef = doc(db, documentPath);
 
-  const getRestaurant = useCallback(async () => {
+  const getRestaurant = async () => {
     try {
       const data = await getDoc(docRef);
       setRestaurant(data.data());
@@ -38,30 +38,30 @@ export const RestaurantSettings = ({ user }) => {
     } catch (err) {
       console.log(err);
     }
-  }, [docRef]);
+  };
 
   // import the opening hours to correct object format:
-  const getOpeningHours = useCallback(() => {
+  const getOpeningHours = () => {
     if (restaurant.openingHours && typeof restaurant.openingHours === "object") {
       setOpeningHours(restaurant.openingHours);
     } else {
       console.log("Invalid openingHours data:", restaurant.openingHours);
       setOpeningHours({});
     }
-  }, [restaurant]);
+  };
 
   //converts firestore timestamps to dates
-  const getClosedDates = useCallback(() => {
+  const getClosedDates = () => {
     const formattedClosedDates = restaurant.datesClosed.map((date) => {
       return new DateObject().set({ date: date.toDate(), format: format });
     });
     setDatesClosed(formattedClosedDates);
-  }, [restaurant.datesClosed, format]);
+  };
 
   useEffect(() => {
     setIsLoading(true);
     getRestaurant();
-  }, [getRestaurant, user]);
+  }, [ user]);
 
   useEffect(() => {
     if (restaurant) {
@@ -71,7 +71,7 @@ export const RestaurantSettings = ({ user }) => {
       setTableDuration(restaurant.tableDuration);
       setIsLoading(false); // Set to false when restaurant data is available
     }
-  }, [restaurant, getOpeningHours, getClosedDates]);
+  }, [restaurant]);
 
   // import the closed dates to correct date format for the datePicker
 
