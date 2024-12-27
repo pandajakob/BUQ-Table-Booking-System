@@ -16,7 +16,7 @@ export const NavBar = ({ user, logout }) => {
           </li>
           <li>
             <NavLink className="button white" to="/settings">
-              settings
+              indstillinger
             </NavLink>
           </li>
           <li>
