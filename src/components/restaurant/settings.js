@@ -147,8 +147,10 @@ export const RestaurantSettings = ({ user }) => {
       <h3> {restaurant.email} </h3>
       <div className="flex">
         <div className="container" id="openingHours">
-          <h2> Åbningstider</h2>
-          <form>
+          
+          <h2 style={{marginBottom: "15%"}}> Åbningstider</h2>
+          
+          <form className="flex">
             {[
               "monday",
               "tuesday",
@@ -162,38 +164,43 @@ export const RestaurantSettings = ({ user }) => {
                 <label>
                   <b>{weekDaysInDanish(day)}</b>
                 </label>
-                <input
-                  type="time"
-                  value={openingHours[day]?.[0] || ""}
-                  onChange={(e) =>
-                    handleOpeningHourChange(day, 0, e.target.value)
-                  }
-                  disabled={openingHours[day]?.[2] ? false : true}
-                />
-                <label>
-                  <b>-</b>
-                </label>
-                <input
-                  type="time"
-                  value={openingHours[day]?.[1] || ""}
-                  onChange={(e) =>
-                    handleOpeningHourChange(day, 1, e.target.value)
-                  }
-                  disabled={openingHours[day]?.[2] ? false : true}
-                />
-
-                <input
-                  type="checkbox"
-                  checked={openingHours[day]?.[2] ? false : true}
-                  onChange={(e) =>
-                    handleClosedStatusChange(day, e.target.checked)
-                  }
-                />
+                <div style={{minWidth: "300px"}}>
+                  <input
+                    type="time"
+                    value={openingHours[day]?.[0] || ""}
+                    onChange={(e) =>
+                      handleOpeningHourChange(day, 0, e.target.value)
+                    }
+                    disabled={openingHours[day]?.[2] ? false : true}
+                  />
+                  <label>
+                    <b>-</b>
+                  </label>
+                  <input
+                    type="time"
+                    value={openingHours[day]?.[1] || ""}
+                    onChange={(e) =>
+                      handleOpeningHourChange(day, 1, e.target.value)
+                    }
+                    disabled={openingHours[day]?.[2] ? false : true}
+                  />
+                </div>
+                <div>
+                  <label> lukket: </label>
+                  <input
+                    type="checkbox"
+                    checked={openingHours[day]?.[2] ? false : true}
+                    onChange={(e) =>
+                      handleClosedStatusChange(day, e.target.checked)
+                    }
+                  />
+                </div>
+                <span className="blackLine"></span>
               </div>
             ))}
           </form>
         </div>
-        
+
         <div className="container" id="datesClosed">
           <div>
             <h2> Datoer lukket: </h2> <br />
@@ -207,7 +214,8 @@ export const RestaurantSettings = ({ user }) => {
               calendarPosition="bottom-center"
               plugins={[<DatePanel />]}
             />
-            <br/><br/>
+            <br />
+            <br />
           </div>
 
           <div>
@@ -220,7 +228,8 @@ export const RestaurantSettings = ({ user }) => {
               min={0}
               onChange={(e) => handlenumberOfSeatsChange(e.target.value)}
             />
-            <br/><br/>
+            <br />
+            <br />
           </div>
           <div>
             <h2> Bord varighed </h2>
@@ -234,10 +243,10 @@ export const RestaurantSettings = ({ user }) => {
               onChange={(e) => handleTableDurationChange(e.target.value)}
             />
             <label> min </label>
-            <br/>
-            <br/>
+            <br />
+            <br />
           </div>
-          <br/>
+          <br />
         </div>
       </div>
       <button className="blue" onClick={onSubmitChanges}>
