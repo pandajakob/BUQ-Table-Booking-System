@@ -4,7 +4,33 @@ import { getDoc, doc, setDoc } from "firebase/firestore";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import { Loading } from "../loading.js";
+  const getRestaurant = async (docRef, setRestaurant) => {
+    try {
+      const data = await getDoc(docRef);
+      setRestaurant(data.data());
+      console.log("successfully fetched restaurant");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
+  // import the opening hours to correct object format:
+  const getOpeningHours = (restaurant, setOpeningHours) => {
+    if (restaurant.openingHours && typeof restaurant.openingHours === "object") {
+      setOpeningHours(restaurant.openingHours);
+    } else {
+      console.log("Invalid openingHours data:", restaurant.openingHours);
+      setOpeningHours({});
+    }
+  };
+
+  //converts firestore timestamps to dates
+  const getClosedDates = (restaurant, format, setDatesClosed) => {
+    const formattedClosedDates = restaurant.datesClosed.map((date) => {
+      return new DateObject().set({ date: date.toDate(), format: format });
+    });
+    setDatesClosed(formattedClosedDates);
+  };
 
 export const RestaurantSettings = ({ user }) => {
 
@@ -30,43 +56,15 @@ export const RestaurantSettings = ({ user }) => {
   const documentPath = "restaurants/" + user?.uid;
   const docRef = doc(db, documentPath);
 
-  const getRestaurant = async () => {
-    try {
-      const data = await getDoc(docRef);
-      setRestaurant(data.data());
-      console.log("successfully fetched restaurant");
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  // import the opening hours to correct object format:
-  const getOpeningHours = () => {
-    if (restaurant.openingHours && typeof restaurant.openingHours === "object") {
-      setOpeningHours(restaurant.openingHours);
-    } else {
-      console.log("Invalid openingHours data:", restaurant.openingHours);
-      setOpeningHours({});
-    }
-  };
-
-  //converts firestore timestamps to dates
-  const getClosedDates = () => {
-    const formattedClosedDates = restaurant.datesClosed.map((date) => {
-      return new DateObject().set({ date: date.toDate(), format: format });
-    });
-    setDatesClosed(formattedClosedDates);
-  };
-
   useEffect(() => {
     setIsLoading(true);
-    getRestaurant();
-  }, [ user]);
+    getRestaurant(docRef, setRestaurant);
+  }, [docRef, user]);
 
   useEffect(() => {
     if (restaurant) {
-      getOpeningHours();
-      getClosedDates();
+      getOpeningHours(restaurant, setOpeningHours);
+      getClosedDates(restaurant, format, setDatesClosed);
       setNumberOfSeats(restaurant.numberOfSeats);
       setTableDuration(restaurant.tableDuration);
       setIsLoading(false); // Set to false when restaurant data is available

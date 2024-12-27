@@ -9,6 +9,7 @@ import { Auth } from "./components/auth";
 import { RestaurantSettings } from "./components/restaurant/settings";
 import { Bookings } from "./components/restaurant/bookings";
 import { NewRestaurant } from "./components/restaurant/newRestaurant";
+import { BookTable } from "./components/bookTable.js";
 import { Loading } from "./components/loading.js";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged(setUser); // Update user state on auth state change
     return () => unsubscribe(); // Cleanup listener on component unmount
   }, []);
+
 
   useEffect(() => {
     if (user) {
@@ -54,6 +56,7 @@ function App() {
         <Route path="/bookings" element={<Bookings />} />
         <Route path="/settings" element={<RestaurantSettings user={user} />} />
         <Route path="/newRestaurant" element={<NewRestaurant user={user} />} />
+        <Route path="book/:restaurantId" element={<BookTable/>} />
       </Routes>
     </div>
   );
