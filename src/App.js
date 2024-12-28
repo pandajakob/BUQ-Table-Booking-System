@@ -49,7 +49,6 @@ function App() {
   return (
     <div className="App">
       <NavBar user={user} logout={logout} />
-
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/auth" element={<Auth setUser={setUser} />} />
