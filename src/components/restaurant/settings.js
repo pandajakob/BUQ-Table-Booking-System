@@ -152,7 +152,7 @@ export const RestaurantSettings = ({ user }) => {
       <h1> {restaurant.restaurantName} </h1>
       <h3> {restaurant.email} </h3>
       <div className="flex">
-        <div className="container" id="openingHours">
+        <div className="container" styles={{alignItems: "baseline"}} id="openingHours">
           
           <h2 style={{marginBottom: "15%"}}> Åbningstider</h2>
           

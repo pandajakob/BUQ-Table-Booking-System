@@ -32,7 +32,7 @@ html {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: baseline;
 }
 
 .main {
@@ -41,7 +41,7 @@ html {
 }
 
 input[type=checkbox] {
-  transform: scale(1.5);
+  transform: scale(1.2);
 }
 
 .blackLine {
@@ -83,6 +83,7 @@ input[type=checkbox] {
 
 #header {
   background-color: rgb(246, 246, 246);
+  background-color: var(--blue-muted);
   padding: 3px 13%;
   justify-content: space-between;
   border-bottom: 0.1px solid black;
@@ -98,7 +99,7 @@ ul, li {
 #header ul {
   justify-content: space-between;
   list-style: none;
-  width: 500px;
+  width: 400px;
 }
 #header ul li {
 
@@ -117,9 +118,8 @@ input {
 }
 
 button, .button {
-  font-size: 1.2rem;
   margin: 5%;
-  padding: 1rem;
+  padding: .8rem;
   min-width: 100px;
   border: 1px solid rgba(0, 0, 0, 0.154);
   font-weight: 600;
@@ -189,6 +189,10 @@ a:hover {
 
 
 @media screen and (max-width: 1000px) {
+  input[type=checkbox] {
+    transform: scale(1);
+  }  
+
   .main, #header{
     padding: 2% 5%;
     flex-wrap: nowrap;
