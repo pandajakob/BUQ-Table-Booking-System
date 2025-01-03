@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getDoc, doc, documentId } from "firebase/firestore";
+import { getDoc, doc } from "firebase/firestore";
 import { Loading } from "./loading.js";
 import { db } from "../config/firebase";
 import DatePicker from "react-datepicker";
