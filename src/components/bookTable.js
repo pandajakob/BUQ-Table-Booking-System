@@ -61,13 +61,13 @@ export const BookTable = () => {
       } catch (err) {
         console.log(err);
       } finally {
-        console.log("bookings", bookingsForChosenDates);
         setIsLoading(false);
       }
     };
     getAllBookingsForChosenDate();
-  }, [restaurant, startDate, restaurantId, bookingsForChosenDates]);
+  }, [restaurant, startDate, restaurantId]);
 
+  console.log("bookings:", bookingsForChosenDates)
   const submitBooking = async () => {
     setIsLoading(true);
     const colRef = collection(db, "bookings");
