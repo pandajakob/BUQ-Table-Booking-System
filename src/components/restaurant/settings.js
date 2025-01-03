@@ -27,15 +27,7 @@ export const RestaurantSettings = ({ user }) => {
 
   const format = "MM/DD/YYYY";
 
-
-
- 
-
-  // import the opening hours to correct object format:
- 
-
-  useEffect(() => {
-    
+  useEffect(() => {    
     const getRestaurant = async () => {
       const documentPath = "restaurants/" + user?.uid;
       const docRef = doc(db, documentPath);
