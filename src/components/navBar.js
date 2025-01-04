@@ -10,18 +10,18 @@ export const NavBar = ({ user, logout }) => {
       {user ? (
         <ul className="flex">
           <li>
-            <NavLink className="button white" to="/bookings">
+            <NavLink to="/bookings">
               Bookings
             </NavLink>
           </li>
           <li>
-            <NavLink className="button white" to="/settings">
+            <NavLink to="/settings">
               Indstillinger
             </NavLink>
           </li>
           <li>
             <NavLink to="/auth">
-              <button className="button red" onClick={logout}>
+              <button className="button black" onClick={logout}>
                 {" "}
                 Log ud
               </button>

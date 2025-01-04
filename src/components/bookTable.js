@@ -17,13 +17,17 @@ import "react-datepicker/dist/react-datepicker-cssmodules.css";
 
 export const BookTable = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [bookingIsDone, setBookingIsDone] = useState(false);
   const [restaurant, setRestaurant] = useState(null);
   const { restaurantId } = useParams();
   const [startDate, setStartDate] = useState(new Date());
+  const [bookingName, setBookingName] = useState("");
+  const [bookingEmail, setBookingEmail] = useState("");
+  const [bookingPhoneNumber, setBookingPhoneNumber] = useState("");
   const [bookingsForChosenDates, setBookingsForChosenDates] = useState([]);
   //const [availableTimesForChosenDate, setAvailableTimesForChosenDate] = useState([]);
 
-    // get restaurant from url param id
+  // get restaurant from url param id
   useEffect(() => {
     const getRestaurant = async () => {
       setIsLoading(true);
@@ -51,12 +55,15 @@ export const BookTable = () => {
       setIsLoading(true);
       // const midnightThisMorning = (new Date()).setHours(0,0,0,0);
       const bookings = [];
-      const q = query(collection(db, "bookings"), where("restaurantId", "==", restaurantId));
+      const q = query(
+        collection(db, "bookings"),
+        where("restaurantId", "==", restaurantId)
+      );
       try {
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((booking) => {
-            bookings.push(booking.data());
-        })
+          bookings.push(booking.data());
+        });
         setBookingsForChosenDates(bookings);
       } catch (err) {
         console.log(err);
@@ -67,8 +74,9 @@ export const BookTable = () => {
     getAllBookingsForChosenDate();
   }, [restaurant, startDate, restaurantId]);
 
-  console.log("bookings:", bookingsForChosenDates)
-  const submitBooking = async () => {
+  console.log("bookings:", bookingsForChosenDates);
+  const submitBooking = async (e) => {
+    e.preventDefault();
     setIsLoading(true);
     const colRef = collection(db, "bookings");
     try {
@@ -83,6 +91,7 @@ export const BookTable = () => {
     } catch (err) {
       console.log(err);
     } finally {
+      setBookingIsDone(true);
       setIsLoading(false);
     }
   };
@@ -91,23 +100,65 @@ export const BookTable = () => {
     return <Loading />;
   } else if (!restaurant) {
     return <h3> Kunne ikke finde restaurant med id: {restaurantId}</h3>;
+  } else if (bookingIsDone) {
+    return (
+      <div className="flex">
+        <div className="container">
+          <h3> Tak for at bestille bord hos {restaurant.name}</h3>
+          <p> dato: {startDate.toDateString()} klokken: ... </p>
+          <p> du vil modtage en bekræftelse på {bookingEmail}</p>
+        </div>
+      </div>
+    );
   }
   return (
     <div style={{ justifyItems: "center" }}>
       <h1> Book bord </h1> <br />
       <div className="container">
         <h2> {restaurant.restaurantName} </h2>
-        <DatePicker
-          selected={startDate}
-          onChange={(date) => setStartDate(date)}
-        />
-        {}
-      </div>
-      <div>
-        <button className="blue" onClick={submitBooking}>
-          {" "}
-          Book bord
-        </button>
+        <form onSubmit={submitBooking}>
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+          />
+          <br />
+          <select>
+            <option value="08:00">08:00 AM</option>
+            <option value="10:00">10:00 AM</option>
+            <option value="12:00">12:00 PM</option>
+            <option value="02:00">02:00 PM</option>
+          </select>
+          <br />
+          <input
+            type="text"
+            placeholder="Navn"
+            min="2"
+            value={bookingName}
+            onChange={(name) => setBookingName(name.target.value)}
+            required
+          />
+          <br />
+          <input
+            type="email"
+            placeholder="Email"
+            value={bookingEmail}
+            onChange={(email) => setBookingEmail(email.target.value)}
+            required
+          />{" "}
+          <br />
+          <input
+            type="tel"
+            min="8"
+            placeholder="Telefon"
+            value={bookingPhoneNumber}
+            onChange={(phone) => setBookingPhoneNumber(phone.target.value)}
+            required
+          />{" "}
+          <br />
+          <button className="blue" type="submit">
+            Book bord
+          </button>
+        </form>
       </div>
     </div>
   );

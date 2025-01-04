@@ -21,7 +21,7 @@ export const NewRestaurant = ({ user }) => {
             tableDuration: 0,
             datesClosed: [],
             openingHours: {monday: ["", "", true], tuesday: ["", "", true],wednesday: ["", "", true], thursday: ["", "", true],friday: ["", "", true],saturday: ["", "", true],sunday: ["", "", true]},
-
+            restaurantId: user.uid,
         });
 
         console.log("success");

@@ -126,6 +126,7 @@ export const RestaurantSettings = ({ user }) => {
         tableDuration: tableDuration,
         datesClosed: [],
         openingHours: openingHours,
+        restaurantId: user.uid,
       });
       console.log("saved changes successfully");
     } catch (err) {

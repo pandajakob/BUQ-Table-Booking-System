@@ -83,10 +83,10 @@ input[type=checkbox] {
 
 #header {
   background-color: rgb(246, 246, 246);
-  background-color: var(--blue-muted);
+  background-color: white;
   padding: 3px 13%;
   justify-content: space-between;
-  border-bottom: 0.1px solid black;
+
   align-items: center;
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.073);
 }
@@ -101,16 +101,14 @@ ul, li {
   list-style: none;
   width: 400px;
 }
-#header ul li {
 
-}
 #openingHours, .openingHours {
   width: 50%;
   min-width: 600px;
   max-width: 600px;
 }
 
-input {
+input, select {
   margin: 5%;
   padding: 8px;
   border: 1px solid rgba(0, 0, 0, 0.154);
