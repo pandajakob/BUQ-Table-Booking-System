@@ -114,7 +114,8 @@ export const RestaurantSettings = ({ user }) => {
   };
 
   // Saves the changes to firestore
-  const onSubmitChanges = async () => {
+  const onSubmitChanges = async (e) => {
+    e.preventDefault();
     const documentPath = "restaurants/" + user?.uid;
     const docRef = doc(db, documentPath);
     setIsLoading(true);
@@ -142,14 +143,14 @@ export const RestaurantSettings = ({ user }) => {
 
   return (
     <div>
-      <h1> {restaurant.restaurantName} </h1>
-      <h3> {restaurant.email} </h3>
-      <div className="flex">
-        <div className="container" styles={{alignItems: "baseline"}} id="openingHours">
-          
-          <h2 style={{marginBottom: "15%"}}> Åbningstider</h2>
-          
-          <form className="flex">
+      <div className="container">
+        <h1> {restaurant.restaurantName} </h1>
+        <h3> {restaurant.email} </h3>
+      </div>
+      <form onSubmit={onSubmitChanges} className="">
+        <div className="container border">
+          <h2 className="container"> Åbningstider</h2>
+          <div className=" flex">
             {[
               "monday",
               "tuesday",
@@ -159,11 +160,11 @@ export const RestaurantSettings = ({ user }) => {
               "saturday",
               "sunday",
             ].map((day) => (
-              <div key={day}>
+              <div key={day} className="min-width container">
                 <label>
                   <b>{weekDaysInDanish(day)}</b>
                 </label>
-                <div style={{minWidth: "300px"}}>
+                <div className=" ">
                   <input
                     type="time"
                     value={openingHours[day]?.[0] || ""}
@@ -185,7 +186,7 @@ export const RestaurantSettings = ({ user }) => {
                   />
                 </div>
                 <div>
-                  <label> lukket: </label>
+                  <label> lukket: </label> <br/>
                   <input
                     type="checkbox"
                     checked={openingHours[day]?.[2] ? false : true}
@@ -197,61 +198,48 @@ export const RestaurantSettings = ({ user }) => {
                 <span className="blackLine"></span>
               </div>
             ))}
-          </form>
+          </div>
         </div>
-
-        <div className="container" id="datesClosed">
-          <div>
-            <h2> Datoer lukket: </h2> <br />
-            <DatePicker
-              style={{ padding: "8px", margin: "5%" }}
-              value={datesClosed}
-              onChange={setDatesClosed}
-              multiple
-              sort
-              format={format}
-              calendarPosition="bottom-center"
-              plugins={[<DatePanel />]}
-            />
-            <br />
-            <br />
-          </div>
-
-          <div>
-            <h2> max. pladser</h2>
-            <input
-              id="seats"
-              type="number"
-              placeholder="40"
-              value={numberOfSeats <= 0 ? "" : numberOfSeats}
-              min={0}
-              onChange={(e) => handlenumberOfSeatsChange(e.target.value)}
-            />
-            <br />
-            <br />
-          </div>
-          <div>
-            <h2> Bord varighed </h2>
-            <input
-              id="tableDuration"
-              type="number"
-              min={0}
-              max={1440} // max 24 hours table duration
-              placeholder="0"
-              value={tableDuration <= 0 ? "" : tableDuration}
-              onChange={(e) => handleTableDurationChange(e.target.value)}
-            />
-            <label> min </label>
-            <br />
-            <br />
-          </div>
-          <br />
+        <div className="container border">
+          <h2> Datoer lukket: </h2> <br />
+          <DatePicker
+            value={datesClosed}
+            onChange={setDatesClosed}
+            multiple
+            sort
+            format={format}
+            calendarPosition="bottom-center"
+            plugins={[<DatePanel />]}
+          />
         </div>
-      </div>
-      <button className="blue" onClick={onSubmitChanges}>
-        {" "}
-        Gem ændringer{" "}
-      </button>
+        <div className="container border">
+          <h2> max. pladser</h2>
+          <input
+            id="seats"
+            type="number"
+            placeholder="40"
+            value={numberOfSeats <= 0 ? "" : numberOfSeats}
+            min={0}
+            onChange={(e) => handlenumberOfSeatsChange(e.target.value)}
+          />
+        </div>
+        <div className="container border ">
+          <h2> Bord varighed </h2>
+          <input
+            id="tableDuration"
+            type="number"
+            min={0}
+            max={1440} // max 24 hours table duration
+            placeholder="0"
+            value={tableDuration <= 0 ? "" : tableDuration}
+            onChange={(e) => handleTableDurationChange(e.target.value)}
+          />
+          <label> min </label>
+        </div>
+        <button type="submit" className="blue">
+          Gem ændringer
+        </button>
+      </form>
     </div>
   );
 };

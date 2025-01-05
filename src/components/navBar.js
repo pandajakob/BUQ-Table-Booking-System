@@ -1,42 +1,44 @@
 import { NavLink } from "react-router-dom";
 
 export const NavBar = ({ user, logout }) => {
-  return (
-    <nav id="header" className="flex">
-      <NavLink to="/">
-        <h3 id="logoTitle"> BUQ </h3>
-      </NavLink>
+  if (!user) {
+    return (
+      <div className="page-header">
+        <div class="logo">
+          <p>BUQ</p>
+        </div>
+        <div className="header-right">
+          <NavLink to="/auth">
+          <button>Log ind</button>
+          </NavLink>
+        </div>
+      </div>
+    );
+  }
 
-      {user ? (
-        <ul className="flex">
-          <li>
-            <NavLink to="/bookings">
-              Bookings
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/settings">
-              Indstillinger
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/auth">
-              <button className="button black" onClick={logout}>
-                {" "}
-                Log ud
-              </button>
-            </NavLink>
-          </li>
-        </ul>
-      ) : (
-        <ul className="flex">
-          <li>
-            <NavLink to="/auth">
-              <p className="button blue">Log ind</p>
-            </NavLink>
-          </li>
-        </ul>
-      )}
-    </nav>
+  return (
+    <div className="page-header">
+      <div className="logo">
+        <p>BUQ</p>
+      </div>
+
+      <button id="menu-icon" className="menu-icon black" onclick="onMenuClick()">
+        <i class="fa fa-bars"></i>
+      </button>
+
+      <div id="navigation-bar" className="nav-bar">
+        <NavLink to="/">Hjem</NavLink>
+        <NavLink to="/bookings">Bookings</NavLink>
+        <NavLink to="/settings">Indstillinger</NavLink>
+      </div>
+
+      <div className="header-right">
+        <NavLink to="/auth">
+          <button className="black" onClick={logout}>
+            Log ud
+          </button>
+        </NavLink>
+      </div>
+    </div>
   );
 };

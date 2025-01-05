@@ -42,7 +42,7 @@ export const Auth = ({ setUser }) => {
       setUser(userCredentials.user);
       navigate("/../bookings");
     } catch (err) {
-        setError(err.code.slice(5));
+      setError(err.code.slice(5));
     } finally {
       setIsLoading(false);
     }
@@ -53,9 +53,10 @@ export const Auth = ({ setUser }) => {
   }
 
   return (
-    <div className="flex">
-      <div className="container" id="loginContainer">
+    <div className="flex container">
+      <div className="container border">
         <h3> Log ind</h3>
+        <div className="">
         <input
           type="email"
           placeholder="Email..."
@@ -67,17 +68,16 @@ export const Auth = ({ setUser }) => {
           placeholder="Password..."
           onChange={(e) => setPassword(e.target.value)}
         />
-
+        </div>
+        <div >
         <button className="white" onClick={signIn}>
-          {" "}
-          Sign in{" "}
+          Log ind
         </button>
         <button className="black" onClick={signUp}>
-          {" "}
-          Sign up{" "}
+          Opret
         </button>
-        <p style={{color : "red"}}> {error} </p>
-
+        </div>
+        <p style={{ color: "red" }}> {error} </p>
       </div>
     </div>
   );

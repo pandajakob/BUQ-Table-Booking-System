@@ -1,5 +1,7 @@
 :root {
   /* White Palette */
+  --header-color: rgb(8, 8, 8);
+
   --white-pure: #FFFFFF;
   --white-light: #F8F8F8;
   --white-warm: #F0F0F0;
@@ -15,18 +17,47 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&display=swap');
+@import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 
-html {
-  font-size: 16px;
-}
-
-.App {
+* {
+  margin: 0;
+  padding: 0;
   font-family: "Merriweather", sans-serif;
-
   text-align: center;
-
+}
+.page-header {
+  background-color: var(--header-color);
+  padding: 1.3rem;
+  display: flex;
+  justify-content: space-between;
+}
+.header-right {
+  align-items: center;
+}
+.logo {
+  color: white;
+  align-self: center;
+  margin-left: 1.2rem;
+  font-size: 2.5rem;
 }
 
+.nav-bar {
+  margin: auto;
+}
+
+.nav-bar a {
+  color: white;
+  padding: 1.5rem;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.menu-icon {
+  color: white;
+  cursor: pointer;
+  display: none;
+}
 
 .flex {
   display: flex;
@@ -37,12 +68,13 @@ html {
 
 .main {
   padding: 5% 10%;
-  
 }
+
 
 input[type=checkbox] {
   transform: scale(1.2);
 }
+
 
 .blackLine {
   display: block;
@@ -51,6 +83,11 @@ input[type=checkbox] {
   border-top: 1px solid black;
   margin: 10% 0;
 }
+
+.margin-auto {
+  margin: auto;
+}
+
 
 .red {
   background-color: red;
@@ -70,54 +107,38 @@ input[type=checkbox] {
 }
 
 .container {
-  min-width: 400px;
-  max-width: 600px;
-  height: 100%;
-  margin: 3%;
+  min-width:  280px;
+  width: 600px;
+  margin: 3% auto;
   padding: 3%;
-  border: 1px solid rgba(0, 0, 0, 0.154);
   border-radius: 5px;
+}
+.min-width {
+  min-width: 350px;
+}
+.shadow {
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.146);
 }
-
-
-#header {
-  background-color: rgb(246, 246, 246);
-  background-color: white;
-  padding: 3px 13%;
-  justify-content: space-between;
-
-  align-items: center;
-  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.073);
-}
-
-ul, li {
-  padding: 0;
-  margin: 0;
-}
-
-#header ul {
-  justify-content: space-between;
-  list-style: none;
-  width: 400px;
-}
-
-#openingHours, .openingHours {
-  width: 50%;
-  min-width: 600px;
-  max-width: 600px;
+.border {
+  border: 1px solid rgba(0, 0, 0, 0.154);
 }
 
 input, select {
+  min-width: 70px;
   margin: 5%;
-  padding: 8px;
+  padding: 0.9rem;
   border: 1px solid rgba(0, 0, 0, 0.154);
   border-radius: 5px;
 }
-
-button, .button {
+button {
+  margin: 2%;
+  min-width: 70px;
+  padding: 0.9rem;
+}
+.button {
   margin: 5%;
-  padding: .8rem;
+  font-size: 1rem;
+  padding: .9rem;
   min-width: 100px;
   border: 1px solid rgba(0, 0, 0, 0.154);
   font-weight: 600;
@@ -186,14 +207,13 @@ a:hover {
 }
 
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 700px) {
   input[type=checkbox] {
     transform: scale(1);
   }  
 
-  .main, #header{
+  .main {
     padding: 2% 5%;
-    flex-wrap: nowrap;
   }
 
   button, .button {
@@ -205,43 +225,46 @@ a:hover {
     width: 80%;
     margin: 10% auto;
   }
+
   input {
     padding: 15px;
-    width: 25%;
+    width: 50px;
   }
 
-  #openingHours div {
-    width: 95%;
-    margin: auto;
+  .container {
+    width: 90%;
   }
-
-  #loginContainer input {
-    width: 80%;
-  }
-  #loginContainer button {
-    width: 80%;
-  }
-
-  #header ul {
-    margin: 0;
-    padding: 0;
-    flex-wrap: nowrap;
-    width: min-content;
-  }
-
-  #header ul li {
-    margin-left: 10px;
-  }
+ 
   input {
     margin: 5%;
-
+  }
+  .nav-bar {
+    display: none;
+    position: absolute;
+    top: 3.7rem;
+    left: 0;
+    width: 100%;
+    background-color: var(--bgcolor);
+    text-align: center;
   }
 
-  .container, #openingHours {
-    min-width: 86%;
-    max-width: 86%;
-    margin: 2% 0px;
-    padding: 2%;
+  .nav-bar.responsive {
+    display: block;
+  }
 
+  .nav-bar a {
+    display: block;
+  }
+
+  .menu-icon {
+    display: block;
+    z-index: 1;
+  }
+
+  .logo {
+    font-size: 1.4rem;
   }
 }
+
+
+
