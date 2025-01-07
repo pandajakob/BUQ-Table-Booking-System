@@ -1,6 +1,5 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
 import { auth } from "./config/firebase";
 
 import { NavBar } from "./components/navBar";
