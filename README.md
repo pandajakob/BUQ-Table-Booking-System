@@ -19,12 +19,9 @@ View Confirmation: After booking, the result is displayed on the screen for the 
   - Manage Reservations: Administrators can view and manage bookings.
   - Edit restaurant details like: opening hours, dates closed, number of seats, booking duration
 
-  - Restaurant-Specific Reservations: Each booking is associated with a unique restaurant ID for efficient management.
-
 ## Technology Stack
 
-- Frontend: React
-
+- Frontend: React JS
 - Backend: Firebase
 
 
