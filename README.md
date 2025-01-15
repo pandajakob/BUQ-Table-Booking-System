@@ -19,3 +19,28 @@ View Confirmation: After booking, the result is displayed on the screen for the 
   - Manage Reservations: Administrators can view and manage bookings.
 
   - Restaurant-Specific Reservations: Each booking is associated with a unique restaurant ID for efficient management.
+
+## Technology Stack
+
+- Frontend: React
+
+- Backend: Firebase
+
+
+## Current Status
+
+The project is a work in progress.
+
+Key functionalities, such as table booking and time fetching algorithms, are implemented.
+
+Additional features and backend support are under development.
+
+## How to Use
+**Book is deployed on firebase** on https://buq123-4846b.web.app/
+
+Access the booking page **to my fake restaurant** by navigating to:
+
+https://buq123-4846b.web.app/book/NngHuQVtFLbRBAHSTcMksQgkCyq2
+
+
+
