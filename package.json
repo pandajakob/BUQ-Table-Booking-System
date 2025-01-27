@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "express": "^4.21.2",
     "firebase": "^11.1.0",
     "react": "^18.0.0",
     "react-datepicker": "^7.5.0",
@@ -43,5 +44,18 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "ajv": "^8.17.1",
     "react-router-dom": "^7.1.1"
-  }
+  },
+  "description": "**BUQ** is a simple table booking software designed to help restaurants manage table reservations efficiently. Built with React, BUQ offers an intuitive user experience for both customers and administrators. As a beginner-level project, the software is currently in development and serves as a learning project",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pandajakob/BUQ-Table-Booking-System.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pandajakob/BUQ-Table-Booking-System/issues"
+  },
+  "homepage": "https://github.com/pandajakob/BUQ-Table-Booking-System#readme"
 }
