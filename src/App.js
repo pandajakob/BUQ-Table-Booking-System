@@ -2,7 +2,6 @@ import "./App.css";
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { auth } from "./config/firebase";
-
 import { NavBar } from "./components/navBar";
 import { HomePage } from "./components/home";
 import { Auth } from "./components/auth";
@@ -20,7 +19,6 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged(setUser); // Update user state on auth state change
     return () => unsubscribe(); // Cleanup listener on component unmount
   }, []);
-
 
   useEffect(() => {
     if (user) {
