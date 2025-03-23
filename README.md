@@ -1,6 +1,6 @@
 # BUQ table booking system
 
-**BUQ** is a simple table booking software designed to help restaurants manage table reservations efficiently. Built with React, BUQ offers an intuitive user experience for both customers and administrators. As a beginner-level project, the software is currently in development and serves as a learning project
+**BUQ** is a table booking software built with React, the software is currently in development and serves as a learning project
 
 ## Features
 
